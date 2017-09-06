@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <span class="h3">Customer:{{' ' + customer.firstName + ' ' + customer.lastName}}</span>
+        </div>
+        <div class="card-block">
+          <form>
+            <div class="row">
+              <div class="form-group col-md-3">
+                <label for="first-name-input" class="col-form-label">First Name</label>
+                <input class="form-control" type="text" id="first-name-input" name="first-name-input" [(ngModel)]="customer.firstName">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="last-name-input" class="col-form-label">Last Name</label>
+                <input class="form-control" type="text" id="last-name-input" name="last-name-input" [(ngModel)]="customer.lastName">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="company-input" class="col-form-label">Company</label>
+                <input class="form-control" type="text" id="company-input" name="company-input" [(ngModel)]="customer.companyName">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="email-input" class="col-form-label">Email</label>
+                <input class="form-control" type="email" id="email-input" name="email-input" [(ngModel)]="customer.emailAddress">
+              </div>
+              <!-- <div class="form-group col-md-3">
+                <label for="example-url-input" class="col-form-label">URL</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                           name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                    <button class="input-group-addon" (click)="d.toggle()" type="button">
+                      <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                    </button>
+                  </div>
+              </div> -->
+            </div>
+            <div class="row">
+              <div class="col">
+                <hr>
+                <h4>Phones</h4>
+                <div class="row">
+                  <div class="form-group col-md-3" *ngFor='let phone of customer.phones; let i = index'>
+                    <input class="form-control" type="text" id="phone-input-[i]" name="phone-input-[i]" [(ngModel)]="phone.phoneNumber">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <button class="btn btn-outline-warning" type="submit">Cancel</button>
+              <button class="btn btn-outline-success" type="submit" disabled>Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <span class="h3">Customers</span>
+            <div class="float-right">
+              <button class="btn btn-outline-success" type="submit">Add</button>
+            </div>
+          </div>
+          <div class="card-block">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Company</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let customer of customers'>
+                  <th scope="row">{{customer.entityId}}</th>
+                  <td>{{customer.firstName}}</td>
+                  <td>{{customer.lastName}}</td>
+                  <td>{{customer.companyName}}</td>
+                  <td>{{customer.emailAddress}}</td>
+                  <td>{{customer.postalAddress.addressText + ' ' + customer.postalAddress.suburb + ' ' + customer.postalAddress.state}}</td>
+                  <td class="float-right">
+                    <button class="btn btn-outline-success" type="submit" [routerLink]="['/customerEdit', customer.entityId]">Edit</button>
+                    <button class="btn btn-outline-warning" type="submit">Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
