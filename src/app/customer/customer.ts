@@ -4,8 +4,8 @@ export interface Customer {
     modifiedBy: string;
     createdDate: any;
     modifiedDate: any;
-    FirstYYYName: string;
-    lastMMMName: string;
+    firstName: string;
+    lastName: string;
     companyName: string;
     emailAddress: string;
     postalAddress: Address;
