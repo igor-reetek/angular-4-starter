@@ -9,20 +9,28 @@
           <form>
             <div class="row">
               <div class="form-group col-md-3">
-                <label for="first-name-input" class="col-form-label">First Name</label>
-                <input class="form-control" type="text" id="first-name-input" name="first-name-input" [(ngModel)]="customer.firstName">
+                <label for="firstName" class="col-form-label">First Name</label>
+                <input class="form-control" type="text" id="firstName" name="firstName" required minlength="4" [(ngModel)]="customer.firstName" #firstName="ngModel">
+                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="text-warning">
+                  <div *ngIf="firstName.errors.required">
+                    Name is required.
+                  </div>
+                  <div *ngIf="firstName.errors.minlength">
+                    Name must be at least 4 characters long.
+                  </div>
+                </div>
               </div>
               <div class="form-group col-md-3">
-                <label for="last-name-input" class="col-form-label">Last Name</label>
-                <input class="form-control" type="text" id="last-name-input" name="last-name-input" [(ngModel)]="customer.lastName">
+                <label for="lastName" class="col-form-label">Last Name</label>
+                <input class="form-control" type="text" id="lastName" name="lastName" [(ngModel)]="customer.lastName">
               </div>
               <div class="form-group col-md-3">
-                <label for="company-input" class="col-form-label">Company</label>
-                <input class="form-control" type="text" id="company-input" name="company-input" [(ngModel)]="customer.companyName">
+                <label for="company" class="col-form-label">Company</label>
+                <input class="form-control" type="text" id="company" name="company" [(ngModel)]="customer.companyName">
               </div>
               <div class="form-group col-md-3">
-                <label for="email-input" class="col-form-label">Email</label>
-                <input class="form-control" type="email" id="email-input" name="email-input" [(ngModel)]="customer.emailAddress">
+                <label for="email" class="col-form-label">Email</label>
+                <input class="form-control" type="email" id="email" name="email" [(ngModel)]="customer.emailAddress">
               </div>
               <!-- <div class="form-group col-md-3">
                 <label for="example-url-input" class="col-form-label">URL</label>
