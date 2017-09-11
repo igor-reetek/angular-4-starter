@@ -9,8 +9,8 @@ export interface Customer {
     companyName: string;
     emailAddress: string;
     postalAddress: Address;
-    notes: any[];
-    phones: any[];
+    notes: Note[];
+    phones: Phone[];
 }
 
 export interface Address {
@@ -18,4 +18,13 @@ export interface Address {
     suburb: string;
     state: string;
     postcode: string; 
+}
+
+export interface Phone {
+    phoneNumber : string;
+    phoneTypeId: number;
+}
+
+export interface Note {
+    noteDetails : string;
 }
