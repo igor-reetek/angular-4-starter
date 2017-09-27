@@ -73,6 +73,12 @@
                       <div class="form-group col-md-3">
                         <label>Phone Number</label>
                         <input class="form-control" type="text" formControlName="phoneNumber">
+                        <div *ngIf="phones.controls[i].controls.phoneNumber.invalid && (phones.controls[i].controls.phoneNumber.dirty || 
+                                    phones.controls[i].controls.phoneNumber.touched)" class="text-warning">
+                          <div *ngIf="phones.controls[i].controls.phoneNumber.errors.required">
+                            Phone number is required.
+                          </div>
+                        </div>
                       </div>
                       <!-- phone type -->
                       <div class="form-group col-md-3">

@@ -29,12 +29,7 @@ export class CustomerEditComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
       company: ['', [Validators.required, Validators.maxLength(100)]],
       email: ['', [Validators.required, Validators.maxLength(256)]],
-      phones: this.fb.array([
-        this.fb.group({
-          phoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
-          phoneTypeId: ['']
-        }),
-      ])
+      phones: this.fb.array([])
     });
   }
 
@@ -70,7 +65,11 @@ export class CustomerEditComponent implements OnInit {
       company: this.customer.companyName,
       email: this.customer.emailAddress,
     });
-    const phoneFGs = this.customer.phones.map(phone => this.fb.group(phone));
+    const phoneFGs = this.customer.phones.map(phone =>
+      this.fb.group({
+        phoneNumber: [phone.phoneNumber, [Validators.required, Validators.maxLength(10)]],
+        phoneTypeId: [phone.phoneTypeId]
+      }));
     const phonesFormArray = this.fb.array(phoneFGs);
     this.customerForm.setControl("phones", phonesFormArray);
   }
@@ -79,6 +78,7 @@ export class CustomerEditComponent implements OnInit {
   get lastName() { return this.customerForm.get('lastName'); }
   get company() { return this.customerForm.get('company'); }
   get email() { return this.customerForm.get('email'); }
+  get phones() { return this.customerForm.get('phones'); }
 
   //Promise
   // getCustomer(id: number): void {
