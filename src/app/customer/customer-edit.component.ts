@@ -74,6 +74,23 @@ export class CustomerEditComponent implements OnInit {
     this.customerForm.setControl("phones", phonesFormArray);
   }
 
+  initPhone() {
+    return this.fb.group({
+      phoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
+      phoneTypeId: ['']
+    });
+  }
+
+  addPhone() {
+    const control = <FormArray>this.customerForm.controls['phones'];
+    control.push(this.initPhone());
+  }
+
+  removePhone(i: number) {
+    const control = <FormArray>this.customerForm.controls['phones'];
+    control.removeAt(i);
+  }
+
   get firstName() { return this.customerForm.get('firstName'); }
   get lastName() { return this.customerForm.get('lastName'); }
   get company() { return this.customerForm.get('company'); }
