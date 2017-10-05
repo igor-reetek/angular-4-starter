@@ -22,13 +22,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor='let customer of customers'>
+                <tr *ngFor='let customer of customers | async'>
                   <th scope="row">{{customer.entityId}}</th>
                   <td>{{customer.firstName}}</td>
                   <td>{{customer.lastName}}</td>
                   <td>{{customer.companyName}}</td>
                   <td>{{customer.emailAddress}}</td>
-                  <td>{{customer.postalAddress.addressText + ' ' + customer.postalAddress.suburb + ' ' + customer.postalAddress.state}}</td>
+                  <td>
+                    <span *ngIf="customer.postalAddress">{{customer.postalAddress.addressText + ' ' + customer.postalAddress.suburb + ' ' + customer.postalAddress.state}}</span>
+                  </td>
                   <td class="float-right">
                     <button class="btn btn-outline-success" type="submit" [routerLink]="['/customerEdit', customer.entityId]">Edit</button>
                     <button class="btn btn-outline-warning" type="submit">Delete</button>

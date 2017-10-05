@@ -23,10 +23,6 @@ export class CustomerListComponent implements OnInit {
   }
 
   getCustomers() : void {
-    this._customerService.getCustomers()
-      .subscribe((data: any) => {
-        this.customers = data
-        console.log(this.customers);
-      })
+    this.customers = this._customerService.getCustomers()
   }
 }
