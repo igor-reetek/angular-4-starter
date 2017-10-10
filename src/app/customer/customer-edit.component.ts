@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subject } from 'rxjs';
+import "rxjs/add/operator/takeUntil";
 
 import { CustomerService } from './customer.service';
 import { Customer } from './customer';
@@ -11,12 +11,13 @@ import { Customer } from './customer';
   selector: 'customer-edit',
   templateUrl: './customer-edit.component.html'
 })
-export class CustomerEditComponent implements OnInit {
+export class CustomerEditComponent implements OnDestroy, OnInit {
 
   customerForm: FormGroup;
 
   customer: Customer;
   customerId: any;
+  unsubscribe: Subject<any> = new Subject();
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private customerService: CustomerService) {
     this.customer = <Customer>{};
@@ -35,7 +36,7 @@ export class CustomerEditComponent implements OnInit {
 
   public ngOnInit(): void {
     // Read the customer Id from the route parameter
-    this.route.params.subscribe(
+    this.route.params.takeUntil(this.unsubscribe).subscribe(
       params => {
         this.customerId = params['id'];
         this.getCustomer(this.customerId);
@@ -43,9 +44,15 @@ export class CustomerEditComponent implements OnInit {
     );
   }
 
+  public ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
   //Observable
   getCustomer(id: number): void {
     this.customerService.getCustomer(id)
+      .takeUntil(this.unsubscribe)
       .subscribe((data: Customer) => {
         this.onCustomerRetrieved(data);
       });
