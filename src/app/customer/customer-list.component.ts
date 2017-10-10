@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subject } from 'rxjs';
+import "rxjs/add/operator/takeUntil";
 
 import { CustomerService } from './customer.service';
 import { Customer } from './customer';
@@ -10,19 +10,30 @@ import { Customer } from './customer';
   selector: 'customer-list',
   templateUrl: './customer-list.component.html'
 })
-export class CustomerListComponent implements OnInit {
+export class CustomerListComponent implements OnInit, OnDestroy {
 
-  customers: Observable<Customer[]>;
+  pagination: Observable<any>;
+  page: number = 1;
+  unsubscribe: Subject<any> = new Subject();
 
   constructor(private _customerService: CustomerService) {
 
   }
 
-  public ngOnInit() : void {
-    this.getCustomers();
+  public ngOnInit(): void {
+    this.searchCustomers();
   }
 
-  getCustomers() : void {
-    this.customers = this._customerService.getCustomers()
+  public ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
+  searchCustomers(): void {
+    this._customerService.searchCustomers({}, this.page, 10)
+      .takeUntil(this.unsubscribe)
+      .subscribe((data: any) => {
+        this.pagination = data;
+      });;
   }
 }

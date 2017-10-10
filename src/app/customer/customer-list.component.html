@@ -22,7 +22,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor='let customer of customers | async'>
+                <tr *ngFor='let customer of pagination.items'>
                   <th scope="row">{{customer.entityId}}</th>
                   <td>{{customer.firstName}}</td>
                   <td>{{customer.lastName}}</td>
@@ -38,6 +38,7 @@
                 </tr>
               </tbody>
             </table>
+            <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" (pageChange)="searchCustomers()"></ngb-pagination>
           </div>
         </div>
       </div>

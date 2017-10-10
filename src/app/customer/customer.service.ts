@@ -23,6 +23,14 @@ export class CustomerService {
             .catch(this._handleError);
     }
 
+    searchCustomers(searchVm: any, pageNo: number, pageSize: number) : Observable<any> {
+        return this.http.post('http://localhost:3558/api/customer/search?pageNo=' + pageNo + '&pageSize=' + pageSize, searchVm)
+        // ...and calling .json() on the response to return data
+        .map((res: Response) => res.json())
+        //...errors if any
+        .catch(this._handleError);
+    }
+
     //Observable
     getCustomer(id: number): Observable<Customer> {
         return this.http.get('http://localhost:3558/api/customer/ById/' + id)
