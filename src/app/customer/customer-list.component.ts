@@ -14,7 +14,9 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   pagination: Observable<any>;
   page: number = 1;
+  pageSize: number = 10;
   unsubscribe: Subject<any> = new Subject();
+  searchVm = { customerName: '', companyName: '', email: '' };
 
   constructor(private _customerService: CustomerService) {
 
@@ -30,7 +32,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   searchCustomers(): void {
-    this._customerService.searchCustomers({}, this.page, 10)
+    this._customerService.searchCustomers(this.searchVm, this.page, this.pageSize)
       .takeUntil(this.unsubscribe)
       .subscribe((data: any) => {
         this.pagination = data;
