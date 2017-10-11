@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
 import { Observable, Subject } from 'rxjs';
 import "rxjs/add/operator/takeUntil";
+import * as FileSaver from 'file-saver'; 
 
 import { CustomerService } from './customer.service';
 import { Customer } from './customer';
@@ -36,6 +36,14 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       .takeUntil(this.unsubscribe)
       .subscribe((data: any) => {
         this.pagination = data;
-      });;
+      });
+  }
+
+  exportCustomers(): void {
+    this._customerService.exportCustomers()
+      .takeUntil(this.unsubscribe)
+      .subscribe((blob: Blob) => {
+        FileSaver.saveAs(blob, 'Customers.csv');
+      });
   }
 }

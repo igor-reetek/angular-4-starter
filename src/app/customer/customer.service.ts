@@ -15,7 +15,7 @@ export class CustomerService {
     }
 
     //Observable Array
-    getCustomers() : Observable<Customer[]> {
+    getCustomers(): Observable<Customer[]> {
         return this.http.get('http://localhost:3558/api/customer/all')
             // ...and calling .json() on the response to return data
             .map((res: Response) => res.json())
@@ -23,12 +23,20 @@ export class CustomerService {
             .catch(this._handleError);
     }
 
-    searchCustomers(searchVm: any, pageNo: number, pageSize: number) : Observable<any> {
+    searchCustomers(searchVm: any, pageNo: number, pageSize: number): Observable<any> {
         return this.http.post('http://localhost:3558/api/customer/search?pageNo=' + pageNo + '&pageSize=' + pageSize, searchVm)
-        // ...and calling .json() on the response to return data
-        .map((res: Response) => res.json())
-        //...errors if any
-        .catch(this._handleError);
+            // ...and calling .json() on the response to return data
+            .map((res: Response) => res.json())
+            //...errors if any
+            .catch(this._handleError);
+    }
+
+    exportCustomers(): Observable<Blob> {
+        return this.http.get('http://localhost:3558/api/customer/export')
+            // ...and calling .json() on the response to return data
+            .map((res: Response) => new Blob([res.arrayBuffer()], { type: 'application/octet-stream' }))
+            //...errors if any
+            .catch(this._handleError);
     }
 
     //Observable
