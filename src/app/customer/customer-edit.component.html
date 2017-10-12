@@ -82,7 +82,10 @@
                       <!-- phone type -->
                       <div class="form-group col-md-3">
                         <label>Phone Type</label>
-                        <input class="form-control" type="text" formControlName="phoneTypeId">
+                        <!-- <input class="form-control" type="text" formControlName="phoneTypeId"> -->
+                        <select formControlName="phoneTypeId" class="form-control">
+                            <option *ngFor="let phoneType of phoneTypes" [ngValue]="phoneType.id">{{phoneType.value}}</option>
+                        </select>
                       </div>
                       <a href="javascript:;" class="text-warning" (click)="removePhone(i)">Remove</a>
                     </div>

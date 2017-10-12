@@ -15,12 +15,12 @@ export class CustomerEditComponent implements OnDestroy, OnInit {
 
   customerForm: FormGroup;
 
-  customer: Customer;
+  customer: Customer = <Customer>{};
   customerId: any;
+  phoneTypes: any[] = [{ id: 1, value: 'Mobile' }, { id: 2, value: 'Home' }, { id: 3, value: 'Work' }, { id: 4, value: 'Fax' }];
   unsubscribe: Subject<any> = new Subject();
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private customerService: CustomerService) {
-    this.customer = <Customer>{};
     this.createForm();
   }
 
